@@ -1,9 +1,9 @@
-package spring.core.advanced.Trace.hellotrace;
+package spring.core.advanced.trace.hellotrace;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import spring.core.advanced.Trace.TraceId;
-import spring.core.advanced.Trace.TraceStatus;
+import spring.core.advanced.trace.TraceId;
+import spring.core.advanced.trace.TraceStatus;
 
 @Slf4j
 @Component
@@ -24,12 +24,12 @@ public class HelloTraceV1 {
 
     // trace 끝나면 호출 -> [796bccd9] OrderController.request() time=1016ms // 로그 종료
     public void end(TraceStatus status) {
-        complete(status, null); // trace 상태와 exception
+        complete(status, null); // trace 상태만 넘김
     }
 
     // Exception 터질 시 호출 -> 정상 종료와 예외 발생은 서로 다르게 출력해줘야 하기 때문에
     public void exception(TraceStatus status, Exception e) {
-        complete(status, e);
+        complete(status, e); // trace 상태와 exception 넘김
     }
 
     private void complete(TraceStatus status, Exception e) {
@@ -47,6 +47,12 @@ public class HelloTraceV1 {
         }
     }
 
+    // level 이 0이면 아무것도 x
+    // level 이 1이면 |-->
+    // level 이 2이면 |    |-->
+
+    // level 이 1이면서 exception 이 있으면 |<X-
+    // level 이 2이면서 exception 이 있으면 |   |<X- ...
     private static String addSpace(String prefix, int level) {
         StringBuilder sb = new StringBuilder();
 

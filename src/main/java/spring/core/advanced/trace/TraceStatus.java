@@ -1,4 +1,4 @@
-package spring.core.advanced.Trace;
+package spring.core.advanced.trace;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
