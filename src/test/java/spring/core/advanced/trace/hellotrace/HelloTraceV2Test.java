@@ -22,5 +22,4 @@ class HelloTraceV2Test {
         trace.exception(status2, new IllegalStateException());
         trace.exception(status1, new IllegalStateException());
     }
-
 }
